@@ -1,0 +1,33 @@
+{
+  "name": "media-growth-dashboard",
+  "private": true,
+  "version": "0.1.0-alpha.1",
+  "type": "module",
+  "scripts": {
+    "dev": "node server/app.mjs --dev",
+    "start": "node server/app.mjs --open",
+    "build": "tsc -b && vite build",
+    "lint": "oxlint",
+    "test": "node --test scripts/tests/*.test.mjs",
+    "doctor": "node scripts/doctor.mjs",
+    "setup": "node scripts/setup.mjs",
+    "cockpit": "node scripts/cockpit.mjs",
+    "verify": "npm run doctor && npm run lint && npm test && npm run build",
+    "preview": "node server/app.mjs --open"
+  },
+  "dependencies": {
+    "lucide-react": "^1.25.0",
+    "phosphor-react": "^1.4.1",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7"
+  },
+  "devDependencies": {
+    "@types/node": "^24.13.2",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.3",
+    "oxlint": "^1.71.0",
+    "typescript": "~6.0.2",
+    "vite": "^8.1.1"
+  }
+}
