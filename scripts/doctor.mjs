@@ -4,8 +4,15 @@ const failures = []
 const major = Number(process.versions.node.split('.')[0])
 if (major < 20) failures.push(`Node.js 版本过低：${process.versions.node}，需要 20 或更高版本`)
 
-for (const [label, command] of [['Git', 'git'], ['npm', process.platform === 'win32' ? 'npm.cmd' : 'npm']]) {
-  const result = spawnSync(command, ['--version'], { encoding: 'utf8', shell: false })
+const npmCheck = process.env.npm_execpath
+  ? [process.execPath, [process.env.npm_execpath, '--version'], false]
+  : [process.platform === 'win32' ? 'npm.cmd' : 'npm', ['--version'], process.platform === 'win32']
+
+for (const [label, command, args, shell] of [
+  ['Git', 'git', ['--version'], false],
+  ['npm', ...npmCheck],
+]) {
+  const result = spawnSync(command, args, { encoding: 'utf8', shell })
   if (result.error || result.status !== 0) failures.push(`未找到 ${label}`)
   else console.log(`✓ ${label}：${result.stdout.trim()}`)
 }
